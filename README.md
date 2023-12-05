@@ -1,6 +1,10 @@
 # TTT Weapon Fixes and Rebalances
 
-Below is a list of all convars/options available with this mod, which allows you to change how this mod rebalances weapons, or modify weapons yourself to add your own weapon balancing.
+Below is a list of all convars/options available with this mod, which allows you to change how this mod rebalances weapons, or modify weapons yourself to add your own weapon balancing.\
+\
+Change any of the 1s below to a 0 to disable that weapon, and change any weapon's stats to whatever you like. Copy the below into your server's server.cfg.\
+\
+(or to your local Gmod install's listenserver.cfg if hosting games just from the Gmod main menu, normally at: C:\Program Files (x86)\Steam\steamapps\common\GarrysMod\garrysmod\cfg)
 
 ## Special weapon rebalances
 
