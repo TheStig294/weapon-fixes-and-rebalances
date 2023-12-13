@@ -3,6 +3,24 @@ if engine.ActiveGamemode() ~= "terrortown" then return end
 
 -- 
 -- 
+-- Misc Changes
+-- 
+-- 
+local damagenumbersCvar = CreateConVar("ttt_rebalance_better_damagenumber_default", "1", {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Whether the TF2 damage numbers mod is forced to better-looking defaults on the client")
+
+if CLIENT then
+    hook.Add("TTTPrepareRound", "StigSpecialWeaponChanges", function()
+        if damagenumbersCvar:GetBool() then
+            RunConsoleCommand("ttt_combattext_antialias", "1")
+            RunConsoleCommand("ttt_combattext_color", "ffffff80")
+        end
+
+        hook.Remove("TTTPrepareRound", "StigSpecialWeaponChanges")
+    end)
+end
+
+-- 
+-- 
 -- Weapons Changes
 -- 
 -- 
@@ -30,9 +48,10 @@ hook.Add("PreRegisterSWEP", "StigSpecialWeaponChanges", function(SWEP, class)
     elseif class == "weapon_ttt_artillery" then
         -- Make artillery cannon always red and not re-buyable
         local rebuyableCvar = CreateConVar("ttt_rebalance_artillery_rebuyable", "0", {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Whether the artillery cannon is re-buyable or not")
+
         SWEP.LimitedStock = rebuyableCvar:GetBool()
 
-        local alwaysRedCvar = CreateConVar("ttt_rebalance_artillery_always_red", "1", {FCVAR_ARCHIVE, FCVAR_REPLICATED},"Whether the artillery cannon should always be red")
+        local alwaysRedCvar = CreateConVar("ttt_rebalance_artillery_always_red", "1", {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Whether the artillery cannon should always be red")
 
         if alwaysRedCvar:GetBool() then
             SWEP.CannonColor = HSVToColor(0, 0.7, 0.7)
@@ -178,6 +197,7 @@ hook.Add("PreRegisterSWEP", "StigSpecialWeaponChanges", function(SWEP, class)
         -- Turns the railgun into the "Free kill gun" that allows to be killed or to kill without karma penalty
         -- (Not enabled by default)
         local freeKillGunCvar = CreateConVar("ttt_rebalance_railgun_no_karma_penalty", "0", {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Whether the railgun doesn't take karma for kills, and killing someone holding a railgun doesn't take karma either")
+
         if not freeKillGunCvar:GetBool() then return end
         SWEP.PrintName = "Free Kill Gun"
 

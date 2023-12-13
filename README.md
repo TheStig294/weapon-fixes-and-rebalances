@@ -17,7 +17,9 @@ If you don't know/don't have a weapon listed below, it's fine, the mod will only
 *ttt_rebalance_invisibility_cloak_killer* 0 // Whether the invisibility cloak should be given to Killers as a loadout weapon\
 *ttt_rebalance_invisibility_cloak_removes_amatrasu 1* // Whether using the invisibility cloak removes your amatrasu weapon if you have one\
 \
-*ttt_rebalance_railgun_no_karma_penalty* 0 // Whether the railgun doesn't take karma for kills, and killing someone holding a railgun doesn't take karma either
+*ttt_rebalance_railgun_no_karma_penalty* 0 // Whether the railgun doesn't take karma for kills, and killing someone holding a railgun doesn't take karma either\
+\
+*ttt_rebalance_better_damagenumber_default* 1 // Whether the TF2 damage numbers mod is forced to better-looking defaults on the client
 
 ## Generic weapon rebalances
 
