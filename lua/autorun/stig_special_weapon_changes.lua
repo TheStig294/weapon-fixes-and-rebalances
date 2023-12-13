@@ -10,7 +10,7 @@ local damagenumbersCvar = CreateConVar("ttt_rebalance_better_damagenumber_defaul
 
 if CLIENT then
     hook.Add("TTTPrepareRound", "StigSpecialWeaponChanges", function()
-        if damagenumbersCvar:GetBool() then
+        if ConVarExists("ttt_combattext_antialias") and damagenumbersCvar:GetBool() then
             RunConsoleCommand("ttt_combattext_antialias", "1")
             RunConsoleCommand("ttt_combattext_color", "ffffff80")
         end
