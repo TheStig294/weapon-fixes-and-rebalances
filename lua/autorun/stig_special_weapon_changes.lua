@@ -1,12 +1,11 @@
 -- Miscellaneous fixes and re-balances for different TTT weapons 
 if engine.ActiveGamemode() ~= "terrortown" then return end
-
 -- 
 -- 
 -- Misc Changes
 -- 
 -- 
-local damagenumbersCvar = CreateConVar("ttt_rebalance_better_damagenumber_default", "1", {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Whether the TF2 damage numbers mod is forced to better-looking defaults on the client")
+local damagenumbersCvar = CreateConVar("ttt_rebalance_better_damagenumber_default", "1", FCVAR_REPLICATED, "Whether the TF2 damage numbers mod is forced to better-looking defaults on the client")
 
 if CLIENT then
     hook.Add("TTTPrepareRound", "StigSpecialWeaponChanges", function()
@@ -21,7 +20,7 @@ end
 
 -- 
 -- 
--- Weapons Changes
+-- Weapons Changes --------------------------------------------------------------------------------------------------------------------------------------------------------
 -- 
 -- 
 hook.Add("PreRegisterSWEP", "StigSpecialWeaponChanges", function(SWEP, class)
@@ -45,6 +44,9 @@ hook.Add("PreRegisterSWEP", "StigSpecialWeaponChanges", function(SWEP, class)
         SWEP.Primary.DefaultClip = SWEP.Primary.ClipSize
         SWEP.Primary.Ammo = "357"
         SWEP.AmmoEnt = "item_ammo_357_ttt"
+    elseif class == "weapon_ttt_rocket_thruster" then
+        -- Fix rocket thruster using wrong HUD slot
+        SWEP.Slot = 1
     elseif class == "weapon_ttt_artillery" then
         -- Make artillery cannon always red and not re-buyable
         local rebuyableCvar = CreateConVar("ttt_rebalance_artillery_rebuyable", "0", {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Whether the artillery cannon is re-buyable or not")
@@ -846,12 +848,49 @@ hook.Add("PreRegisterSWEP", "StigSpecialWeaponChanges", function(SWEP, class)
                 end
             end
         end)
+    elseif class == "weapon_ttt_hotpotato" then
+        -- Makes it so players behind cover take reduced damage from the artillery cannon
+        local musicCvar = CreateConVar("ttt_rebalance_hot_potato_no_copyright_music", "0", {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Whether the hot potato's music is replaced with non-copyright music")
+
+        if not musicCvar:GetBool() then return end
+        local oldMusic = "hotpotatoloop.wav"
+        local newMusic = Sound("weapon_fixes_and_rebalances/hot_potato/gameshow.mp3")
+        -- A global function from the hot potato SWEP file
+        -- Hijack it to use it like a hook for removing the potato sound when it should be
+        local old_fn_CleanUp = fn_CleanUp
+
+        function fn_CleanUp(ply)
+            if SERVER then
+                ply:StopSound(newMusic)
+            end
+
+            return old_fn_CleanUp(ply)
+        end
+
+        SWEP.OldRebalancePotatoTime = SWEP.PotatoTime
+
+        function SWEP:PotatoTime(ply, PotatoChef)
+            SWEP:OldRebalancePotatoTime(ply, PotatoChef)
+            ply:StopSound(oldMusic)
+            ply:StartLoopingSound(newMusic)
+
+            timer.Simple(0.1, function()
+                ply:StopSound(oldMusic)
+            end)
+        end
+
+        SWEP.OldRebalanceDetonate = SWEP.Detonate
+
+        function SWEP:Detonate(ply)
+            SWEP:OldRebalanceDetonate(ply)
+            ply:StopSound(newMusic)
+        end
     end
 end)
 
 -- 
 -- 
--- Weapon entities changes
+-- Weapon entities changes -------------------------------------------------------------------------------------------------------------------------------------------------
 -- 
 -- 
 hook.Add("PreRegisterSENT", "StigSpecialWeaponChangesEntities", function(ENT, class)

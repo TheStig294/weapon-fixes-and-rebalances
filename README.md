@@ -6,20 +6,31 @@ Below is a list of all convars/options available with this mod, which allows you
 
 These are the rebalances that apply to weapons that aren't just ordinary floor weapons, e.g. buyable weapons or TFA guns. The number next to each setting is its default value. Set to 1 to enable, and 0 to disable.\
 \
-If you don't know/don't have a weapon listed below, it's fine, the mod will only apply the fixes and rebalances to the weapons you have installed.\
-\
-*ttt_rebalance_artillery_rebuyable* 0 // Whether the artillery cannon is re-buyable or not\
-*ttt_rebalance_artillery_always_red* 1 // Whether the artillery cannon should always be red\
-*ttt_rebalance_artillery_cover_damage* 1 // Whether players should take reduced damage behind cover from the artillery cannon\
-\
-*ttt_rebalance_bonk_bat_floor_ceiling* 1 // Whether the jail created by the bonk bat should have a floor and ceiling\
-\
-*ttt_rebalance_invisibility_cloak_killer* 0 // Whether the invisibility cloak should be given to Killers as a loadout weapon\
-*ttt_rebalance_invisibility_cloak_removes_amatrasu 1* // Whether using the invisibility cloak removes your amatrasu weapon if you have one\
-\
-*ttt_rebalance_railgun_no_karma_penalty* 0 // Whether the railgun doesn't take karma for kills, and killing someone holding a railgun doesn't take karma either\
-\
-*ttt_rebalance_better_damagenumber_default* 1 // Whether the TF2 damage numbers mod is forced to better-looking defaults on the client
+If you don't know/don't have a weapon listed below, it's fine, the mod will only apply the fixes and rebalances to the weapons you have installed.
+
+```cfg
+ttt_rebalance_artillery_rebuyable 0                   // Whether the artillery cannon is re-buyable or not
+ttt_rebalance_artillery_always_red 1                  // Whether the artillery cannon should always be red
+ttt_rebalance_artillery_cover_damage 1                // Whether players should take reduced damage behind cover from the artillery cannon
+
+ttt_rebalance_bonk_bat_floor_ceiling 1                // Whether the jail created by the bonk bat should have a floor and ceiling
+
+ttt_rebalance_invisibility_cloak_killer 0             // Whether the invisibility cloak should be given to Killers as a loadout weapon
+ttt_rebalance_invisibility_cloak_removes_amatrasu 1   // Whether using the invisibility cloak removes your amatrasu weapon if you have one
+
+ttt_rebalance_railgun_no_karma_penalty 0              // Whether the railgun doesn't take karma for kills, and killing someone holding a railgun doesn't take karma either
+
+ttt_rebalance_better_damagenumber_default 1           // Whether the TF2 damage numbers mod is forced to better-looking defaults on the client
+
+ttt_rebalance_hot_potato_no_copyright_music 0         // Whether the hot potato's music is replaced with non-copyright music
+```
+
+## Credits
+
+'Happy Happy Game Show' Kevin MacLeod (incompetech.com)\
+Licensed under Creative Commons: By Attribution 4.0 License\
+<http://creativecommons.org/licenses/by/4.0/>\
+Used when Hot Potato music replacement setting is on
 
 ## Generic weapon rebalances
 
