@@ -27,6 +27,8 @@ ttt_rebalance_hot_potato_no_copyright_music 0         // Whether the hot potato'
 ttt_rebalance_simfphys_lvs_update_message 0           // Whether the simfphys/LVS mods should show 'A newer version is available!' messages in chat
 
 ttt_rebalance_tips 1                                  // Whether TTT tips are enabled that show at the bottom of the screen while dead
+
+ttt_rebalance_tfa_inspect 0                           // Whether inspecting TFA weapons is enabled
 ```
 
 ## Credits
