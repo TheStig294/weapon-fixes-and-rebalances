@@ -9,7 +9,7 @@ local damagenumbersCvar = CreateConVar("ttt_rebalance_better_damagenumber_defaul
 
 local verisonUpdateSpamCvar = CreateConVar("ttt_rebalance_simfphys_lvs_update_message", "0", {FCVAR_REPLICATED, FCVAR_ARCHIVE}, "Whether the simfphys/LVS mods should show 'A newer version is available!' messages in chat")
 
-local tipsCvar = CreateConVar("ttt_rebalance_tips", "1", {FCVAR_REPLICATED, FCVAR_ARCHIVE}, "Whether TTT tips are enabled that show at the bottom of the screen while dead")
+local tipsCvar = CreateConVar("ttt_rebalance_tips", "1", FCVAR_REPLICATED, "Whether TTT tips are enabled that show at the bottom of the screen while dead")
 
 hook.Add("PostGamemodeLoaded", "StigSpecialWeaponChanges", function()
     if (simfphys or LVS) and not verisonUpdateSpamCvar:GetBool() then
@@ -23,10 +23,6 @@ hook.Add("PostGamemodeLoaded", "StigSpecialWeaponChanges", function()
             end
         end
     end
-
-    if CLIENT and not tipsCvar:GetBool() then
-        RunConsoleCommand("ttt_tips_enable", 0)
-    end
 end)
 
 if CLIENT then
@@ -34,6 +30,10 @@ if CLIENT then
         if ConVarExists("ttt_combattext_antialias") and damagenumbersCvar:GetBool() then
             RunConsoleCommand("ttt_combattext_antialias", "1")
             RunConsoleCommand("ttt_combattext_color", "ffffff80")
+        end
+
+        if CLIENT and not tipsCvar:GetBool() then
+            RunConsoleCommand("ttt_tips_enable", 0)
         end
 
         hook.Remove("TTTPrepareRound", "StigSpecialWeaponChanges")
