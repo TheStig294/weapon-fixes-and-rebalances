@@ -9,6 +9,8 @@ local damagenumbersCvar = CreateConVar("ttt_rebalance_better_damagenumber_defaul
 
 local verisonUpdateSpamCvar = CreateConVar("ttt_rebalance_simfphys_lvs_update_message", "0", {FCVAR_REPLICATED, FCVAR_ARCHIVE}, "Whether the simfphys/LVS mods should show 'A newer version is available!' messages in chat")
 
+local tipsCvar = CreateConVar("ttt_rebalance_tips", "1", {FCVAR_REPLICATED, FCVAR_ARCHIVE}, "Whether TTT tips are enabled that show at the bottom of the screen while dead")
+
 hook.Add("PostGamemodeLoaded", "StigSpecialWeaponChanges", function()
     if (simfphys or LVS) and not verisonUpdateSpamCvar:GetBool() then
         if simfphys then
@@ -20,6 +22,10 @@ hook.Add("PostGamemodeLoaded", "StigSpecialWeaponChanges", function()
             function LVS:CheckUpdates()
             end
         end
+    end
+
+    if CLIENT and not tipsCvar:GetBool() then
+        RunConsoleCommand("ttt_tips_enable", 0)
     end
 end)
 

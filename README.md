@@ -25,6 +25,8 @@ ttt_rebalance_better_damagenumber_default 1           // Whether the TF2 damage 
 ttt_rebalance_hot_potato_no_copyright_music 0         // Whether the hot potato's music is replaced with non-copyright music
 
 ttt_rebalance_simfphys_lvs_update_message 0           // Whether the simfphys/LVS mods should show 'A newer version is available!' messages in chat
+
+ttt_rebalance_tips 1                                  // Whether TTT tips are enabled that show at the bottom of the screen while dead
 ```
 
 ## Credits
