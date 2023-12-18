@@ -7,6 +7,22 @@ if engine.ActiveGamemode() ~= "terrortown" then return end
 -- 
 local damagenumbersCvar = CreateConVar("ttt_rebalance_better_damagenumber_default", "1", FCVAR_REPLICATED, "Whether the TF2 damage numbers mod is forced to better-looking defaults on the client")
 
+local verisonUpdateSpamCvar = CreateConVar("ttt_rebalance_simfphys_lvs_update_message", "0", {FCVAR_REPLICATED, FCVAR_ARCHIVE}, "Whether the simfphys/LVS mods should show 'A newer version is available!' messages in chat")
+
+hook.Add("PostGamemodeLoaded", "StigSpecialWeaponChanges", function()
+    if (simfphys or LVS) and not verisonUpdateSpamCvar:GetBool() then
+        if simfphys then
+            function simfphys:CheckUpdates()
+            end
+        end
+
+        if LVS then
+            function LVS:CheckUpdates()
+            end
+        end
+    end
+end)
+
 if CLIENT then
     hook.Add("TTTPrepareRound", "StigSpecialWeaponChanges", function()
         if ConVarExists("ttt_combattext_antialias") and damagenumbersCvar:GetBool() then

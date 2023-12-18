@@ -23,6 +23,8 @@ ttt_rebalance_railgun_no_karma_penalty 0              // Whether the railgun doe
 ttt_rebalance_better_damagenumber_default 1           // Whether the TF2 damage numbers mod is forced to better-looking defaults on the client
 
 ttt_rebalance_hot_potato_no_copyright_music 0         // Whether the hot potato's music is replaced with non-copyright music
+
+ttt_rebalance_simfphys_lvs_update_message 0           // Whether the simfphys/LVS mods should show 'A newer version is available!' messages in chat
 ```
 
 ## Credits
