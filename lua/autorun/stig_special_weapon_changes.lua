@@ -61,6 +61,9 @@ hook.Add("PreRegisterSWEP", "StigSpecialWeaponChanges", function(SWEP, class)
     elseif class == "giantsupermariomushroom" then
         -- Fix mario mushroom's name being too long
         SWEP.PrintName = "Mario Mushroom"
+    elseif class == "weapon_ttt_headlauncher" then
+        -- Fix headcrab launcher's name being too long
+        SWEP.PrintName = "Headcrab Launcher"
     elseif class == "tfa_dax_big_glock" then
         -- Fix big glock not using TTT ammo
         SWEP.Primary.DefaultClip = SWEP.Primary.ClipSize
