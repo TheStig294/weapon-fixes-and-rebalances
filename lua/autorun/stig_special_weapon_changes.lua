@@ -79,6 +79,46 @@ hook.Add("PreRegisterSWEP", "StigSpecialWeaponChanges", function(SWEP, class)
         SWEP.Primary.DefaultClip = SWEP.Primary.ClipSize
         SWEP.Primary.Ammo = "357"
         SWEP.AmmoEnt = "item_ammo_357_ttt"
+    elseif class == "st_bananapistol" then
+        -- Fix not having a worldmodel and not using TTT ammo
+        SWEP.WorldModel = "models/props/cs_italy/bananna.mdl"
+        SWEP.Primary.Ammo = "Pistol"
+        SWEP.AmmoEnt = "item_ammo_pistol_ttt"
+        SWEP.PrintName = "Banana Gun"
+    elseif class == "weapon_hp_ares_shrike" then
+        -- Remove the exponential component of the ares shrike's recoil -- Recoil now increases linearly, which is actually manageable
+        function SWEP:PrimaryAttack(worldsnd)
+            local recoil = self.Primary.Recoil
+            self.ModulationTime = CurTime() + 2
+            self.ModulationRecoil = math.min(20, self.ModulationRecoil * 1.2)
+            self:SetNextSecondaryFire(CurTime() + self.Primary.Delay)
+            self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
+            if not self:CanPrimaryAttack() then return end
+
+            if not worldsnd then
+                self:EmitSound(self.Primary.Sound, self.Primary.SoundLevel)
+            elseif SERVER then
+                sound.Play(self.Primary.Sound, self:GetPos(), self.Primary.SoundLevel)
+            end
+
+            self:ShootBullet(self.Primary.Damage, recoil, self.Primary.NumShots, self:GetPrimaryCone())
+            self:TakePrimaryAmmo(1)
+            local owner = self:GetOwner()
+            if not IsValid(owner) or owner:IsNPC() or not owner.ViewPunch then return end
+            owner:ViewPunch(Angle(math.Rand(-0.2, -0.1) * recoil, math.Rand(-0.1, 0.1) * recoil, 0))
+        end
+    elseif class == "swep_rifle_viper" then
+        -- Fix not using TTT ammo and having a weird viewmodel
+        SWEP.Base = "weapon_tttbase"
+        SWEP.Primary.Ammo = "357"
+        SWEP.AmmoEnt = "item_ammo_357_ttt"
+        SWEP.AutoSpawnable = true
+        SWEP.Slot = 2
+        SWEP.Kind = WEAPON_HEAVY
+        SWEP.PrintName = "Viper Rifle"
+        SWEP.ViewModelFlip = false
+        SWEP.DrawCrosshair = false
+        SWEP.Icon = "vgui/ttt/ttt_viper_rifle"
     elseif class == "weapon_ttt_csgo_r8revolver" then
         -- Fix shoot sound having no volume drop-off (shoot sound is global)
         -- Fix pistol not taking pistol slot

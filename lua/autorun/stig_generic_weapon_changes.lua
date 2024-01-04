@@ -4,20 +4,13 @@
 -- see: "stig_ttt_weapon_fixes_rebalances.lua"
 if engine.ActiveGamemode() ~= "terrortown" then return end
 
-local weaponModifications = {
+local defaultStatRebalances = {
     weapon_pp_remington = {
         damage = 35
     },
     st_bananapistol = {
         ammo = 20,
-        damage = 30,
-        func = function(SWEP)
-            -- Fix not having a worldmodel and not using TTT ammo
-            SWEP.WorldModel = "models/props/cs_italy/bananna.mdl"
-            SWEP.Primary.Ammo = "Pistol"
-            SWEP.AmmoEnt = "item_ammo_pistol_ttt"
-            SWEP.PrintName = "Banana Gun"
-        end
+        damage = 30
     },
     weapon_ap_vector = {
         recoil = 0.7
@@ -32,46 +25,10 @@ local weaponModifications = {
     },
     weapon_hp_ares_shrike = {
         damage = 12,
-        recoil = 3.5,
-        func = function(SWEP)
-            -- Remove the exponential component of the ares shrike's recoil -- Recoil now increases linearly, which is actually manageable
-            function SWEP:PrimaryAttack(worldsnd)
-                local recoil = self.Primary.Recoil
-                self.ModulationTime = CurTime() + 2
-                self.ModulationRecoil = math.min(20, self.ModulationRecoil * 1.2)
-                self:SetNextSecondaryFire(CurTime() + self.Primary.Delay)
-                self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
-                if not self:CanPrimaryAttack() then return end
-
-                if not worldsnd then
-                    self:EmitSound(self.Primary.Sound, self.Primary.SoundLevel)
-                elseif SERVER then
-                    sound.Play(self.Primary.Sound, self:GetPos(), self.Primary.SoundLevel)
-                end
-
-                self:ShootBullet(self.Primary.Damage, recoil, self.Primary.NumShots, self:GetPrimaryCone())
-                self:TakePrimaryAmmo(1)
-                local owner = self:GetOwner()
-                if not IsValid(owner) or owner:IsNPC() or not owner.ViewPunch then return end
-                owner:ViewPunch(Angle(math.Rand(-0.2, -0.1) * recoil, math.Rand(-0.1, 0.1) * recoil, 0))
-            end
-        end
+        recoil = 3.5
     },
     swep_rifle_viper = {
-        damage = 65,
-        func = function(SWEP)
-            -- Fix not using TTT ammo and having a weird viewmodel
-            SWEP.Base = "weapon_tttbase"
-            SWEP.Primary.Ammo = "357"
-            SWEP.AmmoEnt = "item_ammo_357_ttt"
-            SWEP.AutoSpawnable = true
-            SWEP.Slot = 2
-            SWEP.Kind = WEAPON_HEAVY
-            SWEP.PrintName = "Viper Rifle"
-            SWEP.ViewModelFlip = false
-            SWEP.DrawCrosshair = false
-            SWEP.Icon = "vgui/ttt/ttt_viper_rifle"
-        end
+        damage = 65
     },
     weapon_ttt_p228 = {
         damage = 25
@@ -131,11 +88,6 @@ hook.Add("InitPostEntity", "StigGenericWeaponChangesConvars", function()
 
             convars[convarName] = CreateConVar(convarName, "", {FCVAR_NOTIFY, FCVAR_REPLICATED})
         end
-
-        -- Run a weapon modification function if it has one
-        if weaponModifications[class] and weaponModifications[class].func then
-            weaponModifications[class].func(SWEP)
-        end
     end
 end)
 
@@ -162,9 +114,9 @@ hook.Add("TTTPrepareRound", "StigGenericWeaponChangesApply", function()
             if not cvar then continue end
             local statChanged = false
 
-            if cvar:GetString() == "" and weaponModifications[class] and weaponModifications[class][statName] then
+            if cvar:GetString() == "" and defaultStatRebalances[class] and defaultStatRebalances[class][statName] then
                 -- If the convar is blank, and there is a balancing value, we've got some rebalancing to do...
-                SWEP.Primary[translatedNames[statName]] = weaponModifications[class][statName]
+                SWEP.Primary[translatedNames[statName]] = defaultStatRebalances[class][statName]
                 statChanged = true
             elseif cvar:GetString() ~= "" then
                 -- Else, if the convar is set, then just use the configured value
