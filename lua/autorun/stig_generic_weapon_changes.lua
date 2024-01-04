@@ -137,9 +137,6 @@ hook.Add("InitPostEntity", "StigGenericWeaponChangesConvars", function()
             if weaponModifications[class] and weaponModifications[class].func then
                 weaponModifications[class].func(SWEP)
             end
-
-            -- Make default clip match new clipsize
-            SWEP.Primary.DefaultClip = SWEP.Primary.ClipSize
         end
     end)
 end)
@@ -164,13 +161,21 @@ hook.Add("TTTPrepareRound", "StigGenericWeaponChangesApply", function()
         for statName, statValue in pairs(stats) do
             local cvarName = class .. "_" .. statName
             local cvar = convars[cvarName] or GetConVar(cvarName)
+            local statChanged = false
 
             if cvar:GetString() == "" and weaponModifications[class] and weaponModifications[class][statName] then
                 -- If the convar is blank, and there is a balancing value, we've got some rebalancing to do...
                 SWEP.Primary[translatedNames[statName]] = weaponModifications[class][statName]
+                statChanged = true
             elseif cvar:GetString() ~= "" then
                 -- Else, if the convar is set, then just use the configured value
                 SWEP.Primary[translatedNames[statName]] = cvar:GetFloat()
+                statChanged = true
+            end
+
+            if statName == "ammo" and statChanged then
+                -- Make default clip match new clipsize
+                SWEP.Primary.DefaultClip = SWEP.Primary.ClipSize
             end
         end
 
