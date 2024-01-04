@@ -1,4 +1,4 @@
-# TTT Weapon Fixes and Rebalances
+# TTT Weapon Stats Changer
 
 Below is a list of all convars/options available with this mod, which allows you to change how this mod rebalances weapons, or modify weapons yourself to add your own weapon balancing.
 
