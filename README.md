@@ -63,6 +63,10 @@ Copy the below into your server's server.cfg, or to your local Gmod install's li
 
 ### Default Weapons
 
+weapon_ttt_cse_enabled 1\
+weapon_ttt_cse_firedelay 1\
+weapon_ttt_cse_ammo -1\
+\
 weapon_ttt_flaregun_enabled 1\
 weapon_ttt_flaregun_recoil 4\
 weapon_ttt_flaregun_spread 0.01\
@@ -70,12 +74,9 @@ weapon_ttt_flaregun_firedelay 1\
 weapon_ttt_flaregun_damage 7\
 weapon_ttt_flaregun_ammo 4\
 \
-weapon_ttt_glock_enabled 1\
-weapon_ttt_glock_recoil 0.9\
-weapon_ttt_glock_spread 0.028\
-weapon_ttt_glock_firedelay 0.1\
-weapon_ttt_glock_damage 12\
-weapon_ttt_glock_ammo 20\
+weapon_ttt_defuser_enabled 1\
+weapon_ttt_defuser_firedelay 1\
+weapon_ttt_defuser_ammo -1\
 \
 weapon_ttt_m16_enabled 1\
 weapon_ttt_m16_recoil 1.6\
@@ -84,47 +85,25 @@ weapon_ttt_m16_firedelay 0.19\
 weapon_ttt_m16_damage 23\
 weapon_ttt_m16_ammo 20\
 \
-weapon_ttt_sipistol_enabled 1\
-weapon_ttt_sipistol_recoil 1.35\
-weapon_ttt_sipistol_spread 0.02\
-weapon_ttt_sipistol_firedelay 0.38\
-weapon_ttt_sipistol_damage 28\
-weapon_ttt_sipistol_ammo 20\
+weapon_ttt_knife_enabled 1\
+weapon_ttt_knife_firedelay 1.1\
+weapon_ttt_knife_damage 50\
+weapon_ttt_knife_ammo -1\
 \
-weapon_ttt_stungun_enabled 1\
-weapon_ttt_stungun_recoil 1.2\
-weapon_ttt_stungun_spread 0.02\
-weapon_ttt_stungun_firedelay 0.1\
-weapon_ttt_stungun_damage 9\
-weapon_ttt_stungun_ammo 30\
+weapon_ttt_teleport_enabled 1\
+weapon_ttt_teleport_firedelay 0.5\
+weapon_ttt_teleport_ammo 16\
 \
-weapon_zm_mac10_enabled 1\
-weapon_zm_mac10_recoil 1.15\
-weapon_zm_mac10_spread 0.03\
-weapon_zm_mac10_firedelay 0.065\
-weapon_zm_mac10_damage 12\
-weapon_zm_mac10_ammo 30\
+weapon_tttbasegrenade_enabled 1\
+weapon_tttbasegrenade_firedelay 1\
+weapon_tttbasegrenade_ammo -1\
 \
-weapon_zm_pistol_enabled 1\
-weapon_zm_pistol_recoil 1.5\
-weapon_zm_pistol_spread 0.02\
-weapon_zm_pistol_firedelay 0.38\
-weapon_zm_pistol_damage 25\
-weapon_zm_pistol_ammo 20\
+weapon_ttt_binoculars_enabled 1\
+weapon_ttt_binoculars_firedelay 1\
+weapon_ttt_binoculars_ammo -1\
 \
-weapon_zm_revolver_enabled 1\
-weapon_zm_revolver_recoil 6\
-weapon_zm_revolver_spread 0.02\
-weapon_zm_revolver_firedelay 0.6\
-weapon_zm_revolver_damage 37\
-weapon_zm_revolver_ammo 8\
-\
-weapon_zm_rifle_enabled 1\
-weapon_zm_rifle_recoil 7\
-weapon_zm_rifle_spread 0.005\
-weapon_zm_rifle_firedelay 1.5\
-weapon_zm_rifle_damage 50\
-weapon_zm_rifle_ammo 10\
+weapon_ttt_unarmed_enabled 1\
+weapon_ttt_unarmed_ammo -1\
 \
 weapon_zm_shotgun_enabled 1\
 weapon_zm_shotgun_recoil 7\
@@ -133,12 +112,118 @@ weapon_zm_shotgun_firedelay 0.8\
 weapon_zm_shotgun_damage 11\
 weapon_zm_shotgun_ammo 8\
 \
+weapon_ttt_radio_enabled 1\
+weapon_ttt_radio_firedelay 1\
+weapon_ttt_radio_ammo -1\
+\
+weapon_ttt_push_enabled 1\
+weapon_ttt_push_spread 0.005\
+weapon_ttt_push_firedelay 3\
+weapon_ttt_push_ammo -1\
+\
+weapon_ttt_stungun_enabled 1\
+weapon_ttt_stungun_recoil 1.2\
+weapon_ttt_stungun_spread 0.02\
+weapon_ttt_stungun_firedelay 0.1\
+weapon_ttt_stungun_damage 9\
+weapon_ttt_stungun_ammo 30\
+\
+weapon_ttt_smokegrenade_enabled 1\
+\
+weapon_ttt_health_station_enabled 1\
+weapon_ttt_health_station_firedelay 1\
+weapon_ttt_health_station_ammo -1\
+\
+weapon_ttt_beacon_enabled 1\
+weapon_ttt_beacon_firedelay 1\
+weapon_ttt_beacon_ammo 3\
+\
+weapon_zm_molotov_enabled 1\
+\
+weapon_ttt_sipistol_enabled 1\
+weapon_ttt_sipistol_recoil 1.35\
+weapon_ttt_sipistol_spread 0.02\
+weapon_ttt_sipistol_firedelay 0.38\
+weapon_ttt_sipistol_damage 28\
+weapon_ttt_sipistol_ammo 20\
+\
+weapon_ttt_glock_enabled 1\
+weapon_ttt_glock_recoil 0.9\
+weapon_ttt_glock_spread 0.028\
+weapon_ttt_glock_firedelay 0.1\
+weapon_ttt_glock_damage 12\
+weapon_ttt_glock_ammo 20\
+\
+weapon_ttt_wtester_enabled 1\
+weapon_ttt_wtester_firedelay 1\
+weapon_ttt_wtester_ammo -1\
+\
+weapon_zm_rifle_enabled 1\
+weapon_zm_rifle_recoil 7\
+weapon_zm_rifle_spread 0.005\
+weapon_zm_rifle_firedelay 1.5\
+weapon_zm_rifle_damage 50\
+weapon_zm_rifle_ammo 10\
+\
+weapon_zm_mac10_enabled 1\
+weapon_zm_mac10_recoil 1.15\
+weapon_zm_mac10_spread 0.03\
+weapon_zm_mac10_firedelay 0.065\
+weapon_zm_mac10_damage 12\
+weapon_zm_mac10_ammo 30\
+\
+weapon_tttbase_enabled 1\
+weapon_tttbase_recoil 1.5\
+weapon_tttbase_spread 0.02\
+weapon_tttbase_firedelay 0.15\
+weapon_tttbase_damage 1\
+weapon_tttbase_ammo -1\
+\
+weapon_ttt_decoy_enabled 1\
+weapon_ttt_decoy_firedelay 1\
+weapon_ttt_decoy_ammo -1\
+\
+weapon_zm_pistol_enabled 1\
+weapon_zm_pistol_recoil 1.5\
+weapon_zm_pistol_spread 0.02\
+weapon_zm_pistol_firedelay 0.38\
+weapon_zm_pistol_damage 25\
+weapon_zm_pistol_ammo 20\
+\
+weapon_ttt_phammer_enabled 1\
+weapon_ttt_phammer_recoil 0.1\
+weapon_ttt_phammer_spread 0.02\
+weapon_ttt_phammer_firedelay 12\
+weapon_ttt_phammer_ammo 6\
+\
+weapon_ttt_confgrenade_enabled 1\
+\
+weapon_ttt_c4_enabled 1\
+weapon_ttt_c4_firedelay 5\
+weapon_ttt_c4_ammo -1\
+\
 weapon_zm_sledge_enabled 1\
 weapon_zm_sledge_recoil 1.9\
 weapon_zm_sledge_spread 0.09\
 weapon_zm_sledge_firedelay 0.06\
 weapon_zm_sledge_damage 7\
-weapon_zm_sledge_ammo 150
+weapon_zm_sledge_ammo 150\
+\
+weapon_zm_revolver_enabled 1\
+weapon_zm_revolver_recoil 6\
+weapon_zm_revolver_spread 0.02\
+weapon_zm_revolver_firedelay 0.6\
+weapon_zm_revolver_damage 37\
+weapon_zm_revolver_ammo 8\
+\
+weapon_zm_improvised_enabled 1\
+weapon_zm_improvised_firedelay 0.5\
+weapon_zm_improvised_damage 20\
+weapon_zm_improvised_ammo -1\
+\
+weapon_zm_carry_enabled 1\
+weapon_zm_carry_firedelay 0.1\
+weapon_zm_carry_ammo -1
 
 ### Lykrast's Weapon Collection
 
