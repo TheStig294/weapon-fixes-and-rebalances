@@ -67,9 +67,10 @@ local convars = {}
 -- Creating convars for all TTT weapons
 hook.Add("InitPostEntity", "StigGenericWeaponChangesConvars", function()
     for _, wepCopy in ipairs(weapons.GetList()) do
-        if not wepCopy.Kind then continue end
-        local class = WEPS.GetClass(wepCopy)
+        local class = WEPS.GetClass(wepCopy) or wepCopy.ClassName
+        if not class then continue end
         local SWEP = weapons.GetStored(class)
+        if not SWEP then continue end
 
         local stats = {
             damage = SWEP.Primary.Damage,
@@ -94,9 +95,10 @@ end)
 -- Reading and applying the convars now adjusted by the server
 hook.Add("TTTPrepareRound", "StigGenericWeaponChangesApply", function()
     for _, wepCopy in ipairs(weapons.GetList()) do
-        if not wepCopy.Kind then continue end
-        local class = WEPS.GetClass(wepCopy)
+        local class = WEPS.GetClass(wepCopy) or wepCopy.ClassName
+        if not class then continue end
         local SWEP = weapons.GetStored(class)
+        if not SWEP then continue end
 
         -- Setting weapon stats to configured values, or rebalanced values if not configured and there
         -- is some stat set to be balanced
