@@ -67,14 +67,36 @@ hook.Add("PreRegisterSWEP", "StigSpecialWeaponChanges", function(SWEP, class)
     elseif class == "weapon_ttt_headlauncher" then
         -- Fix headcrab launcher's name being too long
         SWEP.PrintName = "Headcrab Launcher"
+    elseif class == "weapon_ttt_rocket_thruster" then
+        -- Fix rocket thruster using wrong HUD slot
+        SWEP.Slot = 1
+    elseif class == "weapon_lee" then
+        -- Fix not using TTT ammo
+        SWEP.AmmoEnt = "item_ammo_revolver_ttt"
+        SWEP.Primary.Ammo = "AlyxGun"
     elseif class == "tfa_dax_big_glock" then
         -- Fix big glock not using TTT ammo
         SWEP.Primary.DefaultClip = SWEP.Primary.ClipSize
         SWEP.Primary.Ammo = "357"
         SWEP.AmmoEnt = "item_ammo_357_ttt"
-    elseif class == "weapon_ttt_rocket_thruster" then
-        -- Fix rocket thruster using wrong HUD slot
+    elseif class == "weapon_ttt_csgo_r8revolver" then
+        -- Fix shoot sound having no volume drop-off (shoot sound is global)
+        -- Fix pistol not taking pistol slot
+        sound.Add({
+            name = "Weapon_CSGO_Revolver.SingleFixed",
+            channel = CHAN_WEAPON,
+            level = 75,
+            sound = "csgo/weapons/revolver/revolver-1_01.wav"
+        })
+
+        SWEP.Primary.Sound = Sound("Weapon_CSGO_Revolver.SingleFixed")
+
+        if SERVER then
+            resource.AddWorkshop("2903604575")
+        end
+
         SWEP.Slot = 1
+        SWEP.Kind = WEAPON_PISTOL
     elseif class == "weapon_ttt_artillery" then
         -- Make artillery cannon always red and not re-buyable
         local rebuyableCvar = CreateConVar("ttt_rebalance_artillery_rebuyable", "0", {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Whether the artillery cannon is re-buyable or not")

@@ -38,13 +38,28 @@ Licensed under Creative Commons: By Attribution 4.0 License\
 <http://creativecommons.org/licenses/by/4.0/>\
 Used when Hot Potato music replacement setting is on
 
-## Generic weapon rebalances
+## Manipulating weapon stats
 
-These are all of the supported weapons and their stats that you can manipulate with convars.\
+Below is a list of commonly used TTT weapon packs and their stats for you to manipulate for your convenience.\
+All weapon stat convars are in the format: `[Classname]_[Stat]`\
+The stats available are:
+
+- enabled
+- recoil
+- spread
+- firedelay
+- damage
+- ammo
+
+Not every weapon supports every stat, but every weapon will support the `enabled` stat, allowing you to disable the weapon if you set it to 0.
+
+## How to use convars
+
+To find a weapon's classname, obtain it in-game, and type the following into the console: `lua_run PrintTable(Entity(1):GetWeapons())`\
 \
-Change any of the 1s below to a 0 to disable that weapon, and change any weapon's stats to whatever you like. Copy the below into your server's server.cfg.\
+E.g. The Glock's classname is `weapon_ttt_glock`, so `weapon_ttt_glock_enabled 0`, will prevent the glock from spawning, `weapon_ttt_glock_damage 10` will make the glock deal 10 damage, `weapon_ttt_glock_firedelay 0.25` will make the glock shoot 4 times a second, etc.\
 \
-(or to your local Gmod install's listenserver.cfg if hosting games just from the Gmod main menu, normally at: C:\Program Files (x86)\Steam\steamapps\common\GarrysMod\garrysmod\cfg)
+Copy the below into your server's server.cfg, or to your local Gmod install's listenserver.cfg if you are hosting games just from the Gmod main menu, normally at: C:\Program Files (x86)\Steam\steamapps\common\GarrysMod\garrysmod\cfg
 
 ### Default Weapons
 
