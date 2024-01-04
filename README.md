@@ -551,20 +551,3 @@ weapon_welrod_spread 0.02\
 weapon_welrod_firedelay 0.34\
 weapon_welrod_damage 30\
 weapon_welrod_ammo 6
-
-### Other Weapons
-
-st_bananapistol_enabled 1\
-st_bananapistol_damage 30\
-st_bananapistol_ammo 20\
-\
-swep_rifle_viper_enabled 1\
-swep_rifle_viper_recoil 10\
-swep_rifle_viper_firedelay 1.6\
-swep_rifle_viper_damage 65\
-swep_rifle_viper_ammo 12\
-\
-weapon_ttt_csgo_r8revolver_enabled 1\
-weapon_ttt_csgo_r8revolver_firedelay 0.5\
-weapon_ttt_csgo_r8revolver_damage 50\
-weapon_ttt_csgo_r8revolver_ammo 8

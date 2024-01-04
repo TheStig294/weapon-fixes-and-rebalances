@@ -109,36 +109,34 @@ local convars = {}
 
 -- Creating convars for all TTT weapons
 hook.Add("InitPostEntity", "StigGenericWeaponChangesConvars", function()
-    timer.Simple(1, function()
-        for _, wepCopy in ipairs(weapons.GetList()) do
-            if not wepCopy.Kind then continue end
-            local class = WEPS.GetClass(wepCopy)
-            local SWEP = weapons.GetStored(class)
+    for _, wepCopy in ipairs(weapons.GetList()) do
+        if not wepCopy.Kind then continue end
+        local class = WEPS.GetClass(wepCopy)
+        local SWEP = weapons.GetStored(class)
 
-            local stats = {
-                damage = SWEP.Primary.Damage,
-                firedelay = SWEP.Primary.Delay,
-                spread = SWEP.Primary.Cone,
-                recoil = SWEP.Primary.Recoil,
-                ammo = SWEP.Primary.ClipSize
-            }
+        local stats = {
+            damage = SWEP.Primary.Damage,
+            firedelay = SWEP.Primary.Delay,
+            spread = SWEP.Primary.Cone,
+            recoil = SWEP.Primary.Recoil,
+            ammo = SWEP.Primary.ClipSize
+        }
 
-            local convarName = class .. "_enabled"
+        local convarName = class .. "_enabled"
 
-            convars[convarName] = CreateConVar(convarName, 1, {FCVAR_NOTIFY, FCVAR_REPLICATED})
+        convars[convarName] = CreateConVar(convarName, 1, {FCVAR_NOTIFY, FCVAR_REPLICATED})
 
-            for statName, statValue in pairs(stats) do
-                convarName = class .. "_" .. statName
+        for statName, statValue in pairs(stats) do
+            convarName = class .. "_" .. statName
 
-                convars[convarName] = CreateConVar(convarName, "", {FCVAR_NOTIFY, FCVAR_REPLICATED})
-            end
-
-            -- Run a weapon modification function if it has one
-            if weaponModifications[class] and weaponModifications[class].func then
-                weaponModifications[class].func(SWEP)
-            end
+            convars[convarName] = CreateConVar(convarName, "", {FCVAR_NOTIFY, FCVAR_REPLICATED})
         end
-    end)
+
+        -- Run a weapon modification function if it has one
+        if weaponModifications[class] and weaponModifications[class].func then
+            weaponModifications[class].func(SWEP)
+        end
+    end
 end)
 
 -- Reading and applying the convars now adjusted by the server
@@ -161,6 +159,7 @@ hook.Add("TTTPrepareRound", "StigGenericWeaponChangesApply", function()
         for statName, statValue in pairs(stats) do
             local cvarName = class .. "_" .. statName
             local cvar = convars[cvarName] or GetConVar(cvarName)
+            if not cvar then continue end
             local statChanged = false
 
             if cvar:GetString() == "" and weaponModifications[class] and weaponModifications[class][statName] then
@@ -183,7 +182,7 @@ hook.Add("TTTPrepareRound", "StigGenericWeaponChangesApply", function()
         local enableCvar = convars[cvarName] or GetConVar(cvarName)
 
         -- And remove the weapon if it is disabled
-        if not enableCvar:GetBool() then
+        if enableCvar and not enableCvar:GetBool() then
             SWEP.AutoSpawnable = false
             SWEP.CanBuy = nil
         end
