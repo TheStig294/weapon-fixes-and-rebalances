@@ -139,6 +139,13 @@ hook.Add("TTTPrepareRound", "StigGenericWeaponChangesApply", function()
         if enableCvar and not enableCvar:GetBool() then
             SWEP.AutoSpawnable = false
             SWEP.CanBuy = nil
+            SWEP.InLoadoutFor = nil
+
+            if ROLE_STRINGS_RAW and WEPS.UpdateWeaponLists then
+                for id, role in ipairs(ROLE_STRINGS_RAW) do
+                    WEPS.UpdateWeaponLists(id, class, false, true)
+                end
+            end
         end
     end
 
