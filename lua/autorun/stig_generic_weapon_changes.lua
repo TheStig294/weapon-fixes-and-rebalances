@@ -54,6 +54,20 @@ local defaultStatRebalances = {
     }
 }
 
+-- Don't add convars for weapon bases as they are not weapons
+-- and disabling them would just cause a lot of errors
+local banList = {
+    weapon_tttbase = true,
+    weapon_tttbasegrenade = true,
+    tfa_gun_base = true,
+    tfa_melee_base = true,
+    tfa_bash_base = true,
+    tfa_bow_base = true,
+    tfa_knife_base = true,
+    tfa_nade_base = true,
+    tfa_sword_advanced_base = true
+}
+
 local translatedNames = {
     damage = "Damage",
     firedelay = "Delay",
@@ -68,9 +82,9 @@ local convars = {}
 hook.Add("InitPostEntity", "StigGenericWeaponChangesConvars", function()
     for _, wepCopy in ipairs(weapons.GetList()) do
         local class = WEPS.GetClass(wepCopy) or wepCopy.ClassName
-        if not class then continue end
+        if not class or banList[class] then continue end
         local SWEP = weapons.GetStored(class)
-        if not SWEP then continue end
+        if not SWEP or not SWEP.Primary then continue end
 
         local stats = {
             damage = SWEP.Primary.Damage,
@@ -96,9 +110,9 @@ end)
 hook.Add("TTTPrepareRound", "StigGenericWeaponChangesApply", function()
     for _, wepCopy in ipairs(weapons.GetList()) do
         local class = WEPS.GetClass(wepCopy) or wepCopy.ClassName
-        if not class then continue end
+        if not class or banList[class] then continue end
         local SWEP = weapons.GetStored(class)
-        if not SWEP then continue end
+        if not SWEP or not SWEP.Primary then continue end
 
         -- Setting weapon stats to configured values, or rebalanced values if not configured and there
         -- is some stat set to be balanced

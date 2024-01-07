@@ -94,10 +94,6 @@ weapon_ttt_teleport_enabled 1\
 weapon_ttt_teleport_firedelay 0.5\
 weapon_ttt_teleport_ammo 16\
 \
-weapon_tttbasegrenade_enabled 1\
-weapon_tttbasegrenade_firedelay 1\
-weapon_tttbasegrenade_ammo -1\
-\
 weapon_ttt_binoculars_enabled 1\
 weapon_ttt_binoculars_firedelay 1\
 weapon_ttt_binoculars_ammo -1\
@@ -171,13 +167,6 @@ weapon_zm_mac10_spread 0.03\
 weapon_zm_mac10_firedelay 0.065\
 weapon_zm_mac10_damage 12\
 weapon_zm_mac10_ammo 30\
-\
-weapon_tttbase_enabled 1\
-weapon_tttbase_recoil 1.5\
-weapon_tttbase_spread 0.02\
-weapon_tttbase_firedelay 0.15\
-weapon_tttbase_damage 1\
-weapon_tttbase_ammo -1\
 \
 weapon_ttt_decoy_enabled 1\
 weapon_ttt_decoy_firedelay 1\
