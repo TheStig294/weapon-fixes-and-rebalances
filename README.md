@@ -24,7 +24,8 @@ Not every weapon supports every stat, but every weapon will support the `enabled
 
 ## How to use convars
 
-To find a weapon's classname, obtain it in-game, and type the following into the console: `lua_run PrintTable(Entity(1):GetWeapons())`\
+To find a weapon's classname, obtain it in-game, and type the following into the console:\
+`lua_run PrintTable(Entity(1):GetWeapons())`\
 \
 E.g. The Glock's classname is `weapon_ttt_glock`, so `weapon_ttt_glock_enabled 0`, will prevent the glock from spawning, `weapon_ttt_glock_damage 10` will make the glock deal 10 damage, `weapon_ttt_glock_firedelay 0.25` will make the glock shoot 4 times a second, etc.\
 \
