@@ -12,7 +12,10 @@ local banList = {
     tfa_bow_base = true,
     tfa_knife_base = true,
     tfa_nade_base = true,
-    tfa_sword_advanced_base = true
+    tfa_sword_advanced_base = true,
+    weapon_base = true,
+    weapon_flechettegun = true,
+    weapon_fists = true
 }
 
 local translatedNames = {

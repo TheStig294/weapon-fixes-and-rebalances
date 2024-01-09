@@ -46,8 +46,6 @@ weapon_ttt_flaregun_firedelay 1
 weapon_ttt_flaregun_damage 7
 weapon_ttt_flaregun_startingammo 4
 
-weapon_flechettegun_enabled 1
-
 weapon_ttt_defuser_enabled 1
 weapon_ttt_defuser_ammosize -1
 weapon_ttt_defuser_firedelay 1
@@ -119,10 +117,6 @@ weapon_ttt_health_station_ammosize -1
 weapon_ttt_health_station_firedelay 1
 weapon_ttt_health_station_startingammo -1
 
-weapon_fists_enabled 1
-weapon_fists_ammosize -1
-weapon_fists_startingammo -1
-
 weapon_ttt_beacon_enabled 1
 weapon_ttt_beacon_ammosize 3
 weapon_ttt_beacon_firedelay 1
@@ -179,10 +173,6 @@ weapon_zm_pistol_spread 0.02
 weapon_zm_pistol_firedelay 0.38
 weapon_zm_pistol_damage 25
 weapon_zm_pistol_startingammo 20
-
-weapon_base_enabled 1
-weapon_base_ammosize 8
-weapon_base_startingammo 32
 
 weapon_ttt_phammer_enabled 1
 weapon_ttt_phammer_ammosize 6
