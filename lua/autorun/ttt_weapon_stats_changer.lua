@@ -1,58 +1,5 @@
--- These are the weapon re-balances and fixes that are configurable using convars
--- These are for basic weapons that use the SWEP.Primary table for their stats
--- For fixes and re-balances to weapons that don't use SWEP.Primary (e.g. most buyable weapons, TFA guns)
--- see: "stig_ttt_weapon_fixes_rebalances.lua"
+-- This mod adds convars to manipulate TTT weapon stats and enable/disable individual weapons using convars
 if engine.ActiveGamemode() ~= "terrortown" then return end
-
-local defaultStatRebalances = {
-    weapon_pp_remington = {
-        damage = 35
-    },
-    st_bananapistol = {
-        ammo = 20,
-        damage = 30
-    },
-    weapon_ap_vector = {
-        recoil = 0.7
-    },
-    weapon_rp_pocket = {
-        damage = 75
-    },
-    weapon_ap_pp19 = {
-        firedelay = 0.05,
-        damage = 7,
-        recoil = 1.2
-    },
-    weapon_hp_ares_shrike = {
-        damage = 12,
-        recoil = 3.5
-    },
-    swep_rifle_viper = {
-        damage = 65
-    },
-    weapon_ttt_p228 = {
-        damage = 25
-    },
-    weapon_t38 = {
-        damage = 65,
-    },
-    weapon_ttt_g3sg1 = {
-        damage = 30
-    },
-    weapon_gewehr43 = {
-        damage = 40,
-        firedelay = 0.39
-    },
-    weapon_luger = {
-        damage = 20
-    },
-    weapon_welrod = {
-        damage = 30
-    },
-    weapon_dp = {
-        damage = 20
-    }
-}
 
 -- Don't add convars for weapon bases as they are not weapons
 -- and disabling them would just cause a lot of errors
@@ -73,13 +20,14 @@ local translatedNames = {
     firedelay = "Delay",
     spread = "Cone",
     recoil = "Recoil",
-    ammo = "ClipSize"
+    ammosize = "ClipSize",
+    startingammo = "DefaultClip"
 }
 
 local convars = {}
 
 -- Creating convars for all TTT weapons
-hook.Add("InitPostEntity", "StigGenericWeaponChangesConvars", function()
+hook.Add("InitPostEntity", "TTTWeaponStatsChangerConvars", function()
     for _, wepCopy in ipairs(weapons.GetList()) do
         local class = WEPS.GetClass(wepCopy) or wepCopy.ClassName
         if not class or banList[class] then continue end
@@ -91,9 +39,11 @@ hook.Add("InitPostEntity", "StigGenericWeaponChangesConvars", function()
             firedelay = SWEP.Primary.Delay,
             spread = SWEP.Primary.Cone,
             recoil = SWEP.Primary.Recoil,
-            ammo = SWEP.Primary.ClipSize
+            ammosize = SWEP.Primary.ClipSize,
+            startingammo = SWEP.Primary.DefaultClip
         }
 
+        -- "Enabled" convars are set to 1 (on) by default
         local convarName = class .. "_enabled"
 
         convars[convarName] = CreateConVar(convarName, 1, {FCVAR_NOTIFY, FCVAR_REPLICATED})
@@ -101,13 +51,14 @@ hook.Add("InitPostEntity", "StigGenericWeaponChangesConvars", function()
         for statName, statValue in pairs(stats) do
             convarName = class .. "_" .. statName
 
-            convars[convarName] = CreateConVar(convarName, "", {FCVAR_NOTIFY, FCVAR_REPLICATED})
+            -- Weapon stat convars are by default set to the weapon's default value
+            convars[convarName] = CreateConVar(convarName, statValue, {FCVAR_NOTIFY, FCVAR_REPLICATED})
         end
     end
 end)
 
 -- Reading and applying the convars now adjusted by the server
-hook.Add("TTTPrepareRound", "StigGenericWeaponChangesApply", function()
+hook.Add("TTTPrepareRound", "TTTWeaponStatsChangerApply", function()
     for _, wepCopy in ipairs(weapons.GetList()) do
         local class = WEPS.GetClass(wepCopy) or wepCopy.ClassName
         if not class or banList[class] then continue end
@@ -121,29 +72,16 @@ hook.Add("TTTPrepareRound", "StigGenericWeaponChangesApply", function()
             firedelay = SWEP.Primary.Delay,
             spread = SWEP.Primary.Cone,
             recoil = SWEP.Primary.Recoil,
-            ammo = SWEP.Primary.ClipSize
+            ammosize = SWEP.Primary.ClipSize,
+            startingammo = SWEP.Primary.DefaultClip
         }
 
         for statName, statValue in pairs(stats) do
             local cvarName = class .. "_" .. statName
             local cvar = convars[cvarName] or GetConVar(cvarName)
             if not cvar then continue end
-            local statChanged = false
-
-            if cvar:GetString() == "" and defaultStatRebalances[class] and defaultStatRebalances[class][statName] then
-                -- If the convar is blank, and there is a balancing value, we've got some rebalancing to do...
-                SWEP.Primary[translatedNames[statName]] = defaultStatRebalances[class][statName]
-                statChanged = true
-            elseif cvar:GetString() ~= "" then
-                -- Else, if the convar is set, then just use the configured value
-                SWEP.Primary[translatedNames[statName]] = cvar:GetFloat()
-                statChanged = true
-            end
-
-            if statName == "ammo" and statChanged then
-                -- Make default clip match new clipsize
-                SWEP.Primary.DefaultClip = SWEP.Primary.ClipSize
-            end
+            -- Set the weapon to the convar's value
+            SWEP.Primary[translatedNames[statName]] = cvar:GetFloat()
         end
 
         local cvarName = class .. "_enabled"
@@ -163,5 +101,5 @@ hook.Add("TTTPrepareRound", "StigGenericWeaponChangesApply", function()
         end
     end
 
-    hook.Remove("TTTPrepareRound", "StigGenericWeaponChangesApply")
+    hook.Remove("TTTPrepareRound", "TTTWeaponStatsChangerApply")
 end)
