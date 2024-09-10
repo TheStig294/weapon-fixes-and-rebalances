@@ -2,10 +2,6 @@
 
 This mod allows you to change the stats of weapons or enable/disable individual weapons using convars. It is compatible with any weapon that uses the standard SWEP.Primary table to store gun stats, which is the vast majority of weapons on the Steam Workshop.
 
-## Steam Workshop Link
-
-<https://steamcommunity.com/sharedfiles/filedetails/?id=3007222612>
-
 ## Manipulating weapon stats
 
 Below is a list of commonly used TTT weapon packs and their stats for you to manipulate for your convenience.\
@@ -608,3 +604,5 @@ weapon_gewehr43_firedelay 0.38999998569489
 weapon_gewehr43_damage 40
 weapon_gewehr43_startingammo 30
 ```
+## Steam Workshop Link
+https://steamcommunity.com/sharedfiles/filedetails/?id=3007222612
